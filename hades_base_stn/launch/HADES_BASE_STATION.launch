@@ -1,0 +1,10 @@
+<launch>
+	<node pkg="joy" type="joy_node" name="joy_node"/>
+	<node pkg="hades_base_stn" type="BASE_COM_OP_NODE" name="BASE_COM_OP_NODE" output="screen"/>
+	<node pkg="rosserial_python" type="serial_node.py" args="_port:=/dev/ttyACM0 _baud:=1000000" name="serial_node0" respawn="true" output="screen"/>
+	<!--Launch the video processing node-->
+	<node pkg="hades_video_proc_base" type="HADES_VID_PROC_NODE_BASE" name="HADES_VID_PROC_NODE_BASE" output="screen"/>
+	<node pkg="image_view" type="image_view" name = "image_view" args="_image:=/HADES_video_stream" output="screen" respawn="true">
+		<remap from="image" to= "HADES_video_stream"/>
+	</node>
+</launch>

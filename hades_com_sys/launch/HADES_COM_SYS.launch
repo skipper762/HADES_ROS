@@ -1,0 +1,19 @@
+<launch>
+	<node pkg="hades_com_sys" type="COM_OP_NODE" name="COM_OP_NODE" output="screen"/>
+	<node pkg="rosserial_python" type="serial_node.py" args="_port:=/dev/ttyACM0 _baud:=1000000" name="serial_node0" respawn="true" output="screen"/>
+   <include file="$(find video_stream_opencv)/launch/camera.launch" >
+        <arg name="camera_name" value="realsense" />
+        <arg name="video_stream_provider" value="0" />
+        <arg name="fps" value="12" />
+        <arg name="frame_id" value="realsense" />
+        <arg name="camera_info_url" value="" />
+        <arg name="flip_horizontal" value="false" />
+        <arg name="flip_vertical" value="false" />
+	<arg name="width" value = "320"/>
+	<arg name="height" value = "240" />
+        <arg name="visualize" value="true" />
+   </include>
+	<!--Launch the video processing node-->
+	<node pkg="hades_video_proc" type="HADES_VID_PROC_NODE" name="HADES_VID_PROC_NODE" output="screen"/>
+
+</launch>
